@@ -16,8 +16,8 @@ class NovaAIStudy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'NovaAI Study',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: bg,
@@ -42,34 +42,34 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedTab = 0;
 
-  final List<Map<String, dynamic>> features = [
-    {
-      'icon': Icons.document_scanner_rounded,
-      'title': 'قراءة المحاضرات',
-      'desc': 'جهّز نص محاضرتك للمذاكرة',
-      'color': cyan,
-    },
-    {
-      'icon': Icons.translate_rounded,
-      'title': 'الترجمة الذكية',
-      'desc': 'افهم النص ومعناه بالعربي',
-      'color': purple,
-    },
-    {
-      'icon': Icons.auto_awesome_rounded,
-      'title': 'شرح بالمصري',
-      'desc': 'بسّط المعلومة خطوة بخطوة',
-      'color': Color(0xFF63F5B0),
-    },
-    {
-      'icon': Icons.quiz_rounded,
-      'title': 'اختبر نفسك',
-      'desc': 'جهّز أسئلة للمراجعة',
-      'color': Color(0xFFFFC46B),
-    },
+  final features = const [
+    _Feature(
+      icon: Icons.document_scanner_rounded,
+      title: 'قراءة المحاضرات',
+      desc: 'جهّز نص محاضرتك للمذاكرة',
+      color: cyan,
+    ),
+    _Feature(
+      icon: Icons.translate_rounded,
+      title: 'الترجمة الذكية',
+      desc: 'افهم النص ومعناه بالعربي',
+      color: purple,
+    ),
+    _Feature(
+      icon: Icons.auto_awesome_rounded,
+      title: 'شرح بالمصري',
+      desc: 'بسّط المعلومة خطوة بخطوة',
+      color: Color(0xFF63F5B0),
+    ),
+    _Feature(
+      icon: Icons.quiz_rounded,
+      title: 'اختبر نفسك',
+      desc: 'أسئلة للمراجعة والتدريب',
+      color: Color(0xFFFFC46B),
+    ),
   ];
 
-  void showFeature(String title) {
+  void openFeature(String title) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -90,8 +90,8 @@ class _HomePageState extends State<HomePage> {
               Row(
                 children: [
                   Container(
-                    width: 52,
-                    height: 52,
+                    width: 54,
+                    height: 54,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(17),
                       gradient: const LinearGradient(
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: cyan.withOpacity(0.20),
+                          color: cyan.withOpacity(0.2),
                           blurRadius: 22,
                         ),
                       ],
@@ -122,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(height: 4),
                         Text(
                           'مساعدك الذكي للمذاكرة',
                           style: TextStyle(
@@ -133,9 +134,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      showFeature('الإعدادات');
-                    },
+                    onPressed: () => openFeature('الإعدادات'),
                     icon: const Icon(Icons.settings_outlined),
                   ),
                 ],
@@ -164,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                     const Icon(
                       Icons.psychology_alt_rounded,
                       color: cyan,
-                      size: 42,
+                      size: 44,
                     ),
                     const SizedBox(height: 14),
                     const Text(
@@ -174,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 9),
+                    const SizedBox(height: 10),
                     const Text(
                       'حوّل محاضراتك إلى ترجمة وشرح '
                       'ومراجعة تساعدك تفهم المعلومة.',
@@ -188,9 +187,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton.icon(
-                        onPressed: () {
-                          showFeature('ابدأ مذاكرتك');
-                        },
+                        onPressed: () => openFeature('ابدأ مذاكرتك'),
                         icon: const Icon(Icons.rocket_launch_rounded),
                         label: const Text('ابدأ مذاكرتك'),
                         style: FilledButton.styleFrom(
@@ -213,12 +210,12 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 7),
               const Text(
                 'اختار الأداة اللي محتاجها',
                 style: TextStyle(color: Colors.white60),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 16),
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -228,22 +225,21 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 13,
                   crossAxisSpacing: 13,
-                  childAspectRatio: 0.93,
+                  childAspectRatio: 0.88,
                 ),
                 itemBuilder: (context, index) {
                   final item = features[index];
-                  final color = item['color'] as Color;
 
                   return InkWell(
                     borderRadius: BorderRadius.circular(22),
-                    onTap: () => showFeature(item['title'] as String),
+                    onTap: () => openFeature(item.title),
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: panel,
                         borderRadius: BorderRadius.circular(22),
                         border: Border.all(
-                          color: color.withOpacity(0.28),
+                          color: item.color.withOpacity(0.3),
                         ),
                       ),
                       child: Column(
@@ -253,18 +249,18 @@ class _HomePageState extends State<HomePage> {
                             width: 48,
                             height: 48,
                             decoration: BoxDecoration(
-                              color: color.withOpacity(0.12),
+                              color: item.color.withOpacity(0.12),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Icon(
-                              item['icon'] as IconData,
-                              color: color,
+                              item.icon,
+                              color: item.color,
                               size: 27,
                             ),
                           ),
                           const Spacer(),
                           Text(
-                            item['title'] as String,
+                            item.title,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -272,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 7),
                           Text(
-                            item['desc'] as String,
+                            item.desc,
                             style: const TextStyle(
                               fontSize: 12,
                               height: 1.5,
@@ -291,10 +287,17 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   color: panel,
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.white10,
+                  ),
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.lightbulb_outline, color: cyan, size: 30),
+                    Icon(
+                      Icons.lightbulb_outline,
+                      color: cyan,
+                      size: 30,
+                    ),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -306,10 +309,10 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 22),
               const Center(
                 child: Text(
-                  'NOVA AI  •  STUDY SMARTER',
+                  'NOVA AI • STUDY SMARTER',
                   style: TextStyle(
                     color: Colors.white38,
                     fontSize: 11,
@@ -326,8 +329,8 @@ class _HomePageState extends State<HomePage> {
           selectedIndex: selectedTab,
           onDestinationSelected: (index) {
             setState(() => selectedTab = index);
-            if (index == 1) showFeature('مكتبتي');
-            if (index == 2) showFeature('المراجعة');
+            if (index == 1) openFeature('مكتبتي');
+            if (index == 2) openFeature('المراجعة');
           },
           destinations: const [
             NavigationDestination(
@@ -348,6 +351,20 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+class _Feature {
+  final IconData icon;
+  final String title;
+  final String desc;
+  final Color color;
+
+  const _Feature({
+    required this.icon,
+    required this.title,
+    required this.desc,
+    required this.color,
+  });
 }
 
 class FeaturePage extends StatelessWidget {
@@ -382,9 +399,9 @@ class FeaturePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  'إحنا بنجهّز القسم ده في مشروعك.\n'
-                  'الخطوة الجاية هنضيف الوظائف الفعلية '
-                  'ونربطها بملفات محاضراتك.',
+                  'القسم ده لسه في مرحلة التجهيز.\n'
+                  'هنضيف الوظائف الحقيقية خطوة بخطوة، '
+                  'ونبدأ بقراءة المحاضرات من الصور.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white70,
